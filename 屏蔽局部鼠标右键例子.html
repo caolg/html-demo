@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="static/js/jquery.min.js"></script>
+<script type="text/javascript">
+
+ 
+/**
+ * 禁止鼠标左键选择内容
+ */
+function disableMonseLeftSelect(){
+	//屏蔽鼠标选择文档内容
+	document.onselectstart=new Function("event.returnValue=false;");
+	//document.getElementById("div1").setAttribute("onselectstart","return false;");
+	$("#div1").attr("onselectstart","return false;");
+}
+/**
+ * 禁止鼠标左键选择内容
+ */
+function disableDivRightMenu(){
+	//document.getElementById("div1").setAttribute("oncontextmenu","return false;");
+	$("#div1").attr("oncontextmenu","return false;");
+	
+}
+</script>
+</head>
+<body>
+<button type="button" onclick="disableMonseLeftSelect();">禁止鼠标左键选择内容</button>
+<button type="button" onclick="disableDivRightMenu();">禁止DIV鼠标右键菜单</button>
+
+<div id="div1" style="width:500px;height:500px;border:1px solid #999;background-color:#ffccff;">
+	<p>鼠标左键可选中的内容</p>
+	<p>鼠标左键可选中的内容</p>
+	<p>鼠标左键可选中的内容</p>
+	<p>鼠标左键可选中的内容</p>
+</div>
+</body>
+</html>

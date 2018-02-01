@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>dialog模态对话框</title>
+
+<script src="static/js/jquery.min.js"></script>
+<style>
+	/*dialog 样式*/
+	dialog{
+		background-color:#ffeeff;
+		padding:0px;
+		width:478px;
+		text-align:center;
+		vertical-align:middle;
+		border-radius:5px;
+		border:0px;
+	}
+	/*dialog 遮罩层样式*/
+	dialog::backdrop{
+		background-color:rgba(1,1,1,0.1); 
+	}
+</style>
+</head>
+<body>
+<dialog id="sweet-modal">
+	<h3 class="modal-header">模态对话框</h3>
+	<div class="modal-body">
+		<p>内容区域</p>
+		<p>内容区域</p>
+		<p>内容区域</p>
+		<p>按Ecs也可以关闭哦!</p>
+	</div>
+	<footer class="modal-footer">
+		<button id="closeBtn" type="button" onclick="closeDialog();">关闭</button>
+	</footer>
+</dialog>
+<button onclick="showDialog();">打开</button>
+<button onclick="show();">打开show()方法</button>
+<button onclick="closeDialog();">关闭</button>
+<div style="background-color:#eee;width:550px;height:300px;padding:5px;margin:5px;border-radius:0.5em;">
+	<h3>主要内容是：js中三种定义变量的方式const， var， let的区别</h3>
+	<p>
+		1:const定义的变量不可以修改，而且必须初始化。
+		例如:<code>
+			const b = 2;//正确
+			</code>
+		<br/>
+		2:var定义的变量可以修改，如果不初始化会输出undefined，不会报错。
+		<br/>
+		3:let是块级作用域，函数内部使用let定义后，对函数外部无影响。
+	</p>
+</div>
+<script>
+//dialogPolyfill.registerDialog("dialog");
+/**
+ * https://developer.mozilla.org/zh-CN/docs/Web/JavaScript(js定义语法网址)
+ * 主要内容是：js中三种定义变量的方式const， var， let的区别
+ *	1:const定义的变量不可以修改，而且必须初始化。
+ *		const b = 2;//正确
+ *  2:var定义的变量可以修改，如果不初始化会输出undefined，不会报错。
+ *  3:let是块级作用域，函数内部使用let定义后，对函数外部无影响。
+ */
+const modal=document.querySelector("dialog");
+function show(){
+	const modal=document.querySelector("dialog");
+	modal.show();
+}
+function showDialog(){
+	const modal=document.querySelector("dialog");
+	modal.showModal();
+}
+function closeDialog(){
+	const modal=document.querySelector("dialog");
+	modal.close("Accepted");
+	console.log(modal.returnValue);
+}
+
+modal.addEventListener("click",(event)=>{
+	if(event.target==modal){
+		modal.close("cancelled");
+		console.log(modal.returnValue);
+	}
+});
+	
+</script>
+</body>
+</html>

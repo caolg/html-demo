@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+   	.right-menu{
+   		    border: 1px solid #999;
+		    width: 150px;
+		    height: 300px;
+		    position: absolute;
+		    background-color: #fdfdfd;
+		    border-radius:0.2em;
+		    display:none;
+		    /*这6个值分别是：left值 、top值、透明度、阴影外延宽度、颜色、向里凹陷（选填，默认为外延）*/
+		    /*box-shadow:20px 0px 30px 10px #abcdef  inset;*/
+		    box-shadow: -2px 3px 5px 1px #c5c5c5;
+   	}
+   	.right-menu:after{position: absolute;top: -6px;left: 10px;display: inline-block;border-right: 6px solid transparent;border-bottom: 6px solid #ffe;border-left: 6px solid transparent;content: '';}
+   	.right-menu ul{list-style:none;background-color:666;margin:0px 0px;padding:0px 0px;}
+   	.right-menu ul li{padding:6px 20px;margin:2px 2px;border-bottom:1px solid #999;}
+   	.right-menu ul li:hover{background-color:#ffccff;}
+   	.right-menu ul li a{ font-size:12px; display:block; font-family: "微软雅黑"; }
+   </style>
+<script src="static/js/jquery.min.js"></script>
+<script type="text/javascript">
+
+
+function disableRightMenu(){
+//禁止右键
+$(document).bind("contextmenu",function(e){return false;});
+alert("禁止右键菜单成功!");
+}
+
+
+
+////右键特例
+/* $("#div1").bind("contextmenu", function(e) {
+	//vuiContentMenu(e);
+	console.log(e);
+	var x=e.clientX;
+	var y=e.clientY;
+	
+	$("#rightMenu").css({"top":y,"left":x}).show();
+	//关闭右键菜单，很简单
+	window.onclick=function(e){
+	//用户触发click事件就可以关闭了，因为绑定在window上，按事件冒泡处理，不会影响菜单的功能
+	$('#rightMenu').hide();
+	}
+}); */
+
+//屏蔽ctrl按键
+// document.onkeydown=function(){
+// 	if(event.ctrlKey)return false;
+// }
+
+
+
+
+
+
+/****
+*　　　　　封装右键菜单函数：
+*　　　　elementID   要自定义右键菜单的 元素的id
+*　　　　menuID　　　 要显示的右键菜单DIv的 id
+*/
+function rightmenu(elementID,menuID){
+　　var menu=document.getElementById(menuID);      //获取菜单对象
+　　var element=document.getElementById(elementID);//获取点击拥有自定义右键的 元素
+　　element.onmousedown=function(aevent){         //设置该元素的 按下鼠标右键右键的 处理函数
+　　　　if(window.event)aevent=window.event;      //解决兼容性
+　　　　if(aevent.button==2){                   //当事件属性button的值为2时，表用户按下了右键
+　　　　　　document.oncontextmenu=function(aevent){
+   　　　　if(window.event){
+       　　　　aevent=window.event;
+　　　　　　　　aevent.returnValue=false;         //对IE 中断 默认点击右键事件处理函数
+　　　　　　}else{
+　　　　　　　　aevent.preventDefault();          //对标准DOM 中断 默认点击右键事件处理函数
+　　　　　　};
+　　　　};
+　　　　menu.style.cssText='display:block;top:'+aevent.clientY+'px;'+'left:'+aevent.clientX+'px;'
+　　　　//将菜单相对 鼠标定位
+　　　　}
+　　}
+　　menu.onmouseout=function(){                  //设置 鼠标移出菜单时 隐藏菜单
+　　　//　setTimeout(function(){menu.style.display="none";},400);
+　　}
+}
+
+window.onload=function(){
+    rightmenu('div1','rightMenu');
+}
+</script>
+</head>
+<body>
+<div class="container">
+   
+   <div id="rightMenu" class="right-menu">
+   	<ul>
+   		<li><a href="javascript:void();" onclick="alert(1);">返回</a></li>
+   		<li><a href="javascript:void();">前进</a></li>
+   		<li><a href="javascript:void();">重新加载</a></li>
+   		<li><a href="javascript:void();">另存为</a></li>
+   		<li><a href="javascript:void();">打印</a></li>
+   	</ul>
+   </div>
+</div>
+<div oncontextmenu="return false" style="width:500px;height:500px;background-color:gray" id="div1"></div>
+</body>
+</html>

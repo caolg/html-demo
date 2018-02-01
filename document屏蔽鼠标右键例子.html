@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="static/js/jquery.min.js"></script>
+<script type="text/javascript">
+
+function disableRightMenu(){
+	//第一种写法 禁止鼠标右键菜单
+	document.oncontextmenu=new Function("event.returnValue=false;");
+	//第二种写法 禁止鼠标右键菜单
+	$(document).bind("contextmenu",function(e){return false;});
+}
+
+function disableMonseLeftSelect(){
+	//屏蔽鼠标选择文档内容
+	document.onselectstart=new Function("event.returnValue=false;");
+}
+</script>
+</head>
+<body>
+<button type="button" onclick="disableMonseLeftSelect();">禁止鼠标左键选择内容</button>
+<button type="button" onclick="disableRightMenu();">禁止鼠标右键菜单</button>
+
+<p>鼠标左键可选中的内容</p>
+<p>鼠标左键可选中的内容</p>
+<p>鼠标左键可选中的内容</p>
+<p>鼠标左键可选中的内容</p>
+</body>
+</html>
